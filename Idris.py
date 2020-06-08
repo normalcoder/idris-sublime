@@ -52,37 +52,32 @@ class RunIdrisCommandCommand(sublime_plugin.TextCommand):
                     cwd=os.path.dirname(v.file_name()),
                     stdout=subprocess.PIPE
                 ) 
-            exit_code = idris_p.wait()
-            if exit_code != 0:
-                if exit_code == 127: 
-                    sublime.error_message("idris is not found in Sublime's PATH: " + env["PATH"])
-                return None
+            
+            isReloaded = cmd == ""
+            if isReloaded:
+                output = "Successfully reloaded: " + v.file_name()
             else:
-                isReloaded = cmd == ""
-                if isReloaded:
-                    output = "Successfully reloaded: " + v.file_name()
+                output = strip_ansi_codes(idris_p.communicate()[0].decode("utf-8"))
+
+            if output:
+                out_panel = v.window().create_output_panel("idris_panel")
+                out_panel.run_command("append", {"characters": output})
+
+                packageName = 'idris-sublime'
+                tmFilename = 'Idris.tmLanguage'
+                packagesPath = sublime.packages_path()
+                tmLangFile = join(packagesPath, packageName, tmFilename)
+                tmFileRelative = join(split(packagesPath)[1], packageName, tmFilename)
+                if os.path.isfile(tmLangFile):
+                    out_panel.set_syntax_file(tmFileRelative)
                 else:
-                    output = strip_ansi_codes(idris_p.communicate()[0].decode("utf-8"))
-
-                if output:
-                    out_panel = v.window().create_output_panel("idris_panel")
-                    out_panel.run_command("append", {"characters": output})
-
-                    packageName = 'idris-sublime'
-                    tmFilename = 'Idris.tmLanguage'
-                    packagesPath = sublime.packages_path()
-                    tmLangFile = join(packagesPath, packageName, tmFilename)
-                    tmFileRelative = join(split(packagesPath)[1], packageName, tmFilename)
-                    if os.path.isfile(tmLangFile):
+                    installedPackageFile = join(sublime.installed_packages_path(), packageName + '.sublime-package')
+                    if os.path.isfile(installedPackageFile):
+                        with zipfile.ZipFile(installedPackageFile, 'r') as zipRef:
+                            zipRef.extract(tmFilename, split(tmLangFile)[0])
                         out_panel.set_syntax_file(tmFileRelative)
-                    else:
-                        installedPackageFile = join(sublime.installed_packages_path(), packageName + '.sublime-package')
-                        if os.path.isfile(installedPackageFile):
-                            with zipfile.ZipFile(installedPackageFile, 'r') as zipRef:
-                                zipRef.extract(tmFilename, split(tmLangFile)[0])
-                            out_panel.set_syntax_file(tmFileRelative)
 
-                    v.window().run_command("show_panel", {"panel": "output.idris_panel"})
+                v.window().run_command("show_panel", {"panel": "output.idris_panel"})
 
         if evalExpr:
             v.window().show_input_panel("Expression: ", "", run_cmd, None, None)

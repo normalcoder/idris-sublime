@@ -1,7 +1,7 @@
 [
     {
         "caption": "Idris: Show type",
-        "keys": ["super+`"],
+        "keys": ["super+ctrl+`"],
         "command": "run_idris_command", "args": { "cmd": ":t" },
     },{
         "caption": "Idris: Show type",
@@ -49,8 +49,12 @@
         "command": "run_idris_command", "args": { "cmd": ":ml!" },
     },{
         "caption": "Idris: Evaluate expression",
-        "keys": ["super+ctrl+e"],
+        "keys": ["super+ctrl+k"],
         "command": "run_idris_command", "args": { "cmd": "", "evalExpr": true }
+    },{
+        "caption": "Idris: Execute expression",
+        "keys": ["super+ctrl+e"],
+        "command": "run_idris_command", "args": { "cmd": ":exec" }
     },{
         "caption": "Idris: Make with pattern",
         "keys": ["super+ctrl+w"],

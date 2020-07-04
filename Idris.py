@@ -30,7 +30,7 @@ class RunIdrisCommandCommand(sublime_plugin.TextCommand):
 
             if cmd == ':cs!':
                 args = [row, column, n]
-            elif cmd in [':t', ':doc']:
+            elif cmd in [':t', ':doc', ':exec']:
                 args = [n]
             elif cmd in [':ac!', ':apc!', ':am!', ':mw!', ':mc!', ':ml!', ':gd!']:
                 args = [row, n]
@@ -41,7 +41,7 @@ class RunIdrisCommandCommand(sublime_plugin.TextCommand):
             else:
                 args = []
 
-            return ["idris2", "--find-ipkg", v.file_name(), "--client", " ".join([cmd] + args)]
+            return [os.path.expanduser("~/.idris2/bin/idris2"), "--find-ipkg", v.file_name(), "--client", " ".join([cmd] + args)]
 
         def run_cmd(cmd, additionalInput=None):
             env = os.environ
@@ -80,7 +80,7 @@ class RunIdrisCommandCommand(sublime_plugin.TextCommand):
                 v.window().run_command("show_panel", {"panel": "output.idris_panel"})
 
         if evalExpr:
-            v.window().show_input_panel("Expression: ", "", run_cmd, None, None)
+            v.window().show_input_panel("Evaluate expression: ", "", run_cmd, None, None)
         elif inputExpr != None:
             v.window().show_input_panel(inputExpr + ": ", "", lambda s: run_cmd(cmd, s), None, None)
         else:

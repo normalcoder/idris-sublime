@@ -36,6 +36,9 @@
         "caption": "Idris: Evaluate expression",
         "command": "run_idris_command", "args": { "cmd": "", "evalExpr": true }
     },{
+        "caption": "Idris: Execute expression",
+        "command": "run_idris_command", "args": { "cmd": ":exec" }
+    },{
         "caption": "Idris: Make with pattern",
         "command": "run_idris_command", "args": { "cmd": ":mw!" }
     },{

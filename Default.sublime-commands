@@ -24,11 +24,17 @@
         "caption": "Idris: Proof search",
         "command": "run_idris_command", "args": { "cmd": ":ps!" }
     },{
+        "caption": "Idris: Proof search next",
+        "command": "run_idris_command", "args": { "cmd": ":psnext" }
+    },{
         "caption": "Idris: Proof search with hints",
         "command": "run_idris_command", "args": { "cmd": ":ps!", "inputExpr": "Proof search hints" }
     },{
         "caption": "Idris: Generate definition",
         "command": "run_idris_command", "args": { "cmd": ":gd!" }
+    },{
+        "caption": "Idris: Generate next definition",
+        "command": "run_idris_command", "args": { "cmd": ":gdnext" }
     },{
         "caption": "Idris: Make lemma",
         "command": "run_idris_command", "args": { "cmd": ":ml!" },

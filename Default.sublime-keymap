@@ -36,6 +36,10 @@
         "keys": ["super+ctrl+s"],
         "command": "run_idris_command", "args": { "cmd": ":ps!" }
     },{
+        "caption": "Idris: Proof search next",
+        "keys": ["super+ctrl+f"],
+        "command": "run_idris_command", "args": { "cmd": ":psnext" }
+    },{
         "caption": "Idris: Proof search with hints",
         "keys": ["super+ctrl+o"],
         "command": "run_idris_command", "args": { "cmd": ":ps!", "inputExpr": "Proof search hints" }
@@ -43,6 +47,10 @@
         "caption": "Idris: Generate definition",
         "keys": ["super+ctrl+a"],
         "command": "run_idris_command", "args": { "cmd": ":gd!" }
+    },{
+        "caption": "Idris: Generate next definition",
+        "keys": ["super+ctrl+g"],
+        "command": "run_idris_command", "args": { "cmd": ":gdnext" }
     },{
         "caption": "Idris: Make lemma",
         "keys": ["super+ctrl+l"],

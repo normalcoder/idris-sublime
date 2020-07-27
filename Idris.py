@@ -38,6 +38,8 @@ class RunIdrisCommandCommand(sublime_plugin.TextCommand):
                 args = [row, n, additionalInput]
             elif cmd == ':ps!':
                 args = [row, n, additionalInput] if additionalInput != None else [row, n]
+            elif cmd in [':gdnext', ':psnext']:
+                args = []
             else:
                 args = []
 
